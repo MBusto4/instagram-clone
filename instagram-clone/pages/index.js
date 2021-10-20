@@ -10,8 +10,6 @@ export default function Home() {
       </Head>
 
       <main className="">
-
-        <h1>This is insta build</h1>
         <Header />
 
         {/* Feed */}
