@@ -7,7 +7,7 @@ import {
     PaperAirplaneIcon,
     MenuIcon,
     HomeIcon,
-} from "@heroicons/react/solid"
+} from "@heroicons/react/outline"
 
 function Header() {
     return (
@@ -47,7 +47,18 @@ function Header() {
                 <div className='flex items-center justify-end space-x-4'>
                     <HomeIcon className='navButton' />
                     <MenuIcon className='h-6 md:hidden cursor-pointer' />
-                    <PaperAirplaneIcon className='navButton' />
+                    <div className='relative navButton'>
+                        <PaperAirplaneIcon className='navButton rotate-45' />
+                        <div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500
+                        rounded-full flex items-center justify-center animate-pulse text-white' >3</div>
+                    </div>
+                    <PlusCircleIcon className='navButton' />
+                    <UserGroupIcon className='navButton' />
+                    <HeartIcon className='navButton' />
+                    <img
+                        className='h-10 rounded-full cursor-pointer'
+                        src="https://media-exp1.licdn.com/dms/image/C4E03AQG5LSCpjfG0jA/profile-displayphoto-shrink_200_200/0/1615845650471?e=1634774400&v=beta&t=RR_qNwmKQ8uGymldmunIkXZZsO4SOZ3Gf1YyvYbEsbQ" alt="" />
+
                 </div>
 
 
