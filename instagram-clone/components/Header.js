@@ -11,7 +11,7 @@ import {
 
 function Header() {
     return (
-        <div>
+        <div className='shadow-md border-b'>
             <div className="flex justify-between bg-white max-w-6xl mx-5 lg:mx-auto">
                 <div className='relative hidden lg:inline-grid w-24 cursor-pointer'>
                     <Image
@@ -48,7 +48,7 @@ function Header() {
                     <HomeIcon className='navButton' />
                     <MenuIcon className='h-6 md:hidden cursor-pointer' />
                     <div className='relative navButton'>
-                        <PaperAirplaneIcon className='navButton rotate-45' />
+                        <PaperAirplaneIcon className='navButton rotate-45 pb-0.5' />
                         <div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500
                         rounded-full flex items-center justify-center animate-pulse text-white' >3</div>
                     </div>
