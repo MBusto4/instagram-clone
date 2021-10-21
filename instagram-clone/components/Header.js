@@ -57,7 +57,7 @@ function Header() {
                     <HeartIcon className='navButton' />
                     <img
                         className='h-10 rounded-full cursor-pointer'
-                        src="https://media-exp1.licdn.com/dms/image/C4E03AQG5LSCpjfG0jA/profile-displayphoto-shrink_200_200/0/1615845650471?e=1634774400&v=beta&t=RR_qNwmKQ8uGymldmunIkXZZsO4SOZ3Gf1YyvYbEsbQ" alt="" />
+                        src="https://pkimgcdn.peekyou.com/aa27a6431e751f6deaf283dd7551f015.jpeg" alt="" />
 
                 </div>
 
