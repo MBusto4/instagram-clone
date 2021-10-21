@@ -21,9 +21,6 @@ function Post({ id, username, userImg, img, caption }) {
                 <img className='rounded-full h-12 w-12 object-contain border p-1 mr-3' src={userImg} alt="" />
                 <p className='flex-1 font-bold'>{username}</p>
                 <DotsHorizontalIcon className='h-5' />
-                {/* caption */}
-                {/* comments */}
-                {/* input */}
             </div>
 
             {/* img */}
@@ -43,6 +40,18 @@ function Post({ id, username, userImg, img, caption }) {
                 <span className='font-bold mr-1'>{username} </span>
                 {caption}
             </p>
+
+            {/* comments */}
+
+            {/* input */}
+            <form className='flex items-center p-4'>
+                <EmojiHappyIcon className='h-7' />
+                <input type='text' className='border-none flex-1 focus:ring-0 outline-none
+                ' placeholder='Add A Comment...' />
+                <button className='font-semibold text-blue-400'>POST</button>
+            </form>
+
+
         </div>
     )
 }
