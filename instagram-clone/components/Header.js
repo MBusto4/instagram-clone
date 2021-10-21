@@ -12,7 +12,7 @@ import {
 function Header() {
     return (
         <div className='shadow-md border-b'>
-            <div className="flex justify-between bg-white max-w-6xl mx-5 lg:mx-auto">
+            <div className="flex justify-between bg-white sticky top-0 z-1 max-w-6xl mx-5 lg:mx-auto">
                 <div className='relative hidden lg:inline-grid w-24 cursor-pointer'>
                     <Image
                         src='https://links.papareact.com/ocw'
