@@ -1,7 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import faker from 'faker'
-
+import Story from './Story'
 function Stories() {
+
+    //creating state
+    const [fakeUsers, setFakeUsers] = useState([])
 
     //basically component did mount
     useEffect(() => {
@@ -11,12 +14,19 @@ function Stories() {
             ...faker.helpers.contextualCard(),
             id: i
         }))
-        console.log('FakeUsers--->', fakeUsers)
+        setFakeUsers(fakeUsers)
     }, [])
 
-
     return (
-        <div>
+        <div className='flex space-x-2 p-6 bg-white mt-8 border-gray-200
+        border rounded-sm overflow-scroll'>
+            {fakeUsers.map(user => (
+                <Story
+                    key={user.id}
+                    img={user.avatar}
+                    username={user.username}
+                />
+            ))}
             {/* Story */}
             {/* Story */}
             {/* Story */}
