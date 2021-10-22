@@ -9,25 +9,32 @@ import {
     HomeIcon,
 } from "@heroicons/react/outline"
 import { signIn, signOut, useSession } from "next-auth/react"
+//built in to next.js
+import { useRouter } from "next/dist/client/router"
+import { useRecoilState } from "recoil"
+import { modalState } from "../atoms/modalAtom"
 
 function Header() {
 
     //naming our data from our session(this is who is logged in)
     const { data: sessionData } = useSession()
-    console.log("YOUR SESSION ----->", sessionData)
+    //using the global state
+    const [open, setOpen] = useRecoilState(modalState)
+
+    const router = useRouter()
 
 
     return (
         <div className='shadow-sm border-b'>
             <div className="flex justify-between sticky top-0 z-1 max-w-6xl mx-5 lg:mx-auto">
-                <div className='relative hidden lg:inline-grid w-24 cursor-pointer'>
+                <div onClick={() => router.push('/')} className='relative hidden lg:inline-grid w-24 cursor-pointer'>
                     <Image
                         src='https://links.papareact.com/ocw'
                         objectFit="contain"
                         layout='fill'
                     />
                 </div>
-                <div className='relative w-10 lg:hidden flex-shrink-0 cursor-pointer mt-'>
+                <div onClick={() => router.push('/')} className='relative w-10 lg:hidden flex-shrink-0 cursor-pointer mt-'>
                     <Image
                         src='https://links.papareact.com/jjm'
                         objectFit="contain"
@@ -52,7 +59,7 @@ function Header() {
                 {/* Right */}
 
                 <div className='flex items-center justify-end space-x-4'>
-                    <HomeIcon className='navButton' />
+                    <HomeIcon onClick={() => router.push('/')} className='navButton' />
                     <MenuIcon className='h-6 md:hidden cursor-pointer' />
 
                     {sessionData ? (
@@ -62,7 +69,7 @@ function Header() {
                                 <div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500
                             rounded-full flex items-center justify-center animate-pulse text-white' >3</div>
                             </div>
-                            <PlusCircleIcon className='navButton' />
+                            <PlusCircleIcon onClick={() => setOpen(true)} className='navButton' />
                             <UserGroupIcon className='navButton' />
                             <HeartIcon className='navButton' />
                             <img
