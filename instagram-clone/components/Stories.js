@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import faker from 'faker'
 import Story from './Story'
+import { useSession } from "next-auth/react"
+
+
 function Stories() {
 
     //creating state
     const [fakeUsers, setFakeUsers] = useState([])
+    const { data: sessionData } = useSession()
 
     //basically component did mount
     useEffect(() => {
@@ -20,6 +24,12 @@ function Stories() {
     return (
         <div className='flex space-x-2 p-6 bg-white mt-8 border-gray-20
         border rounded-sm overflow-x-scroll scrollbar-thin scrollbar-thumb-black'>
+
+            {sessionData && (
+                <Story img={sessionData.user.image} username={sessionData.user.username} />
+            )}
+
+
             {fakeUsers.map(user => (
                 <Story
                     key={user.id}
@@ -27,13 +37,6 @@ function Stories() {
                     username={user.username}
                 />
             ))}
-            {/* Story */}
-            {/* Story */}
-            {/* Story */}
-            {/* Story */}
-            {/* Story */}
-
-
         </div>
     )
 }
