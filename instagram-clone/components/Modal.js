@@ -5,19 +5,34 @@ import { Dialog, Transition } from "@headlessui/react"
 import {
     CameraIcon
 } from "@heroicons/react/outline"
+import { image } from 'faker'
 
 
 function Modal() {
 
     const [open, setOpen] = useRecoilState(modalState)
     const filePickerRef = useRef(null)
-
+    const captionRef = useRef()
     const [selectedFile, setSelectedFile] = useState(null)
+    const [loading, setLoading] = useState(false)
 
-    const addImageToPost = (e) => {
-
+    const uploadPost = async () => {
+        if (loading) return
+        setLoading(true)
     }
 
+    const addImageToPost = (e) => {
+        const reader = new FileReader()
+        //get the file the user selected
+        if (e.target.files[0]) {
+            //read as a dataUrl
+            reader.readAsDataURL(e.target.files[0])
+        }
+        //fire off the onload function
+        reader.onload = (readerEvent) => {
+            setSelectedFile(readerEvent.target.result)
+        }
+    }
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog
@@ -57,37 +72,43 @@ function Modal() {
                         <div className='inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left 
                         overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full'>
                             <div>
-                                <div>
+                                {selectedFile ? (
+                                    <img
+                                        className='w-full object-contain cursor-pointer'
+                                        src={selectedFile}
+                                        onClick={() => setSelectedFile(null)} />
+                                ) : (
                                     <div
                                         onClick={() => filePickerRef.current.click()}
                                         className='mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 cursor-pointer'>
                                         <CameraIcon
+
                                             className='h-6 w-6 text-red-600'
                                             aria-hidden='true'
                                         />
                                     </div>
-                                    <div className='mt-3 text-center sm:mt-5'>
-                                        <Dialog.Title
-                                            as='h3'
-                                            className='text-lg leading-6 font-medium text-gray-600'
-                                        >Upload a photo</Dialog.Title>
-                                        <div>
-                                            <input
-                                                ref={filePickerRef}
-                                                type="file"
-                                                hidden
-                                                onChange={addImageToPost}
 
-
-                                            />
-                                        </div>
-                                        <div className='mt-2'>
-                                            <input
-                                                className='border-none focus:ring-0 w-full text-center'
-                                                type='text'
-                                                placeholder='Please Enter a caption....'
-                                            />
-                                        </div>
+                                )}
+                                <div className='mt-3 text-center sm:mt-5'>
+                                    <Dialog.Title
+                                        as='h3'
+                                        className='text-lg leading-6 font-medium text-gray-600'
+                                    >Upload a photo</Dialog.Title>
+                                    <div>
+                                        <input
+                                            ref={filePickerRef}
+                                            type="file"
+                                            hidden
+                                            onChange={addImageToPost}
+                                        />
+                                    </div>
+                                    <div className='mt-2'>
+                                        <input
+                                            className='border-none focus:ring-0 w-full text-center'
+                                            type='text'
+                                            placeholder='Please Enter a caption....'
+                                            ref={captionRef}
+                                        />
                                     </div>
                                 </div>
                                 <div className='mt-5 sm:mt-6'>
