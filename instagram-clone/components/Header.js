@@ -8,11 +8,18 @@ import {
     MenuIcon,
     HomeIcon,
 } from "@heroicons/react/outline"
+import { signIn, signOut, useSession } from "next-auth/react"
 
 function Header() {
+
+    //naming our data from our session(this is who is logged in)
+    const { data: sessionData } = useSession()
+    console.log("YOUR SESSION ----->", sessionData)
+
+
     return (
-        <div className='shadow-md border-b'>
-            <div className="flex justify-between bg-white sticky top-0 z-1 max-w-6xl mx-5 lg:mx-auto">
+        <div className='shadow-sm border-b'>
+            <div className="flex justify-between sticky top-0 z-1 max-w-6xl mx-5 lg:mx-auto">
                 <div className='relative hidden lg:inline-grid w-24 cursor-pointer'>
                     <Image
                         src='https://links.papareact.com/ocw'
@@ -47,17 +54,26 @@ function Header() {
                 <div className='flex items-center justify-end space-x-4'>
                     <HomeIcon className='navButton' />
                     <MenuIcon className='h-6 md:hidden cursor-pointer' />
-                    <div className='relative navButton'>
-                        <PaperAirplaneIcon className='navButton rotate-45 pb-0.5' />
-                        <div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500
-                        rounded-full flex items-center justify-center animate-pulse text-white' >3</div>
-                    </div>
-                    <PlusCircleIcon className='navButton' />
-                    <UserGroupIcon className='navButton' />
-                    <HeartIcon className='navButton' />
-                    <img
-                        className='h-10 rounded-full cursor-pointer'
-                        src="https://pkimgcdn.peekyou.com/aa27a6431e751f6deaf283dd7551f015.jpeg" alt="" />
+
+                    {sessionData ? (
+                        <>
+                            <div className='relative navButton'>
+                                <PaperAirplaneIcon className='navButton rotate-45 pb-0.5' />
+                                <div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500
+                            rounded-full flex items-center justify-center animate-pulse text-white' >3</div>
+                            </div>
+                            <PlusCircleIcon className='navButton' />
+                            <UserGroupIcon className='navButton' />
+                            <HeartIcon className='navButton' />
+                            <img
+                                onClick={signOut}
+                                className='h-10 w-10 rounded-full cursor-pointer'
+                                src={sessionData?.user?.image} alt="" />
+                        </>
+                    ) : (
+                        <button onClick={signIn}> Sign In </button>
+                    )
+                    }
 
                 </div>
 
