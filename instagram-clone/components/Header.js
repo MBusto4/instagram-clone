@@ -11,12 +11,15 @@ import {
 import { signIn, signOut, useSession } from "next-auth/react"
 //built in to next.js
 import { useRouter } from "next/dist/client/router"
+import { useRecoilState } from "recoil"
+import { modalState } from "../atoms/modalAtom"
 
 function Header() {
 
     //naming our data from our session(this is who is logged in)
     const { data: sessionData } = useSession()
-    console.log("YOUR SESSION ----->", sessionData)
+    //using the global state
+    const [open, setOpen] = useRecoilState(modalState)
 
     const router = useRouter()
 
@@ -66,7 +69,7 @@ function Header() {
                                 <div className='absolute -top-2 -right-1 text-xs w-5 h-5 bg-red-500
                             rounded-full flex items-center justify-center animate-pulse text-white' >3</div>
                             </div>
-                            <PlusCircleIcon className='navButton' />
+                            <PlusCircleIcon onClick={() => setOpen(true)} className='navButton' />
                             <UserGroupIcon className='navButton' />
                             <HeartIcon className='navButton' />
                             <img
