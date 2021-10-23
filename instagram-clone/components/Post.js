@@ -50,6 +50,15 @@ function Post({ id, username, userImg, img, caption }) {
         [db, id]
     )
 
+    //unliking
+    useEffect(
+        () =>
+            setHasLiked(
+                likes.findIndex((like) => (like.id === sessionData?.user?.uid)) !== -1
+            ),
+        [likes]
+    )
+
     const likePost = async () => {
         if (hasLiked) {
             await deleteDoc(doc(db, 'posts', id, 'likes', sessionData.user.uid))
@@ -59,15 +68,6 @@ function Post({ id, username, userImg, img, caption }) {
             })
         }
     }
-
-    //unliking
-    useEffect(
-        () =>
-            setHasLiked(
-                likes.findIndex((like) => (like.id === sessionData?.user?.uid)) !== -1
-            ),
-        [likes]
-    )
 
     const sendComment = async (e) => {
         e.preventDefault()
@@ -113,8 +113,12 @@ function Post({ id, username, userImg, img, caption }) {
                 </div>
                 <BookmarkIcon className='postButton' />
             </div>
+
             {/* caption */}
             <p className=' p-5 truncate'>
+                {likes.length > 0 && (
+                    <p className='font-bold mb-1'>{likes.length} likes</p>
+                )}
                 <span className='font-bold mr-1'>{username} </span>
                 {caption}
             </p>
@@ -126,7 +130,7 @@ function Post({ id, username, userImg, img, caption }) {
                         <img className='h-7 rounded-full' src={comment.data().userImage} alt="" />
                         <p className='text-sm flex-1'>
                             <span className='font-bold'>{comment.data().username}</span>
-                            {comment.data().comment}
+                            {" "} {comment.data().comment}
                         </p>
                         <Moment fromNow className='pr-5 text-xs'>
                             {comment.data().timestamp?.toDate()}
@@ -134,8 +138,6 @@ function Post({ id, username, userImg, img, caption }) {
                     </div>
                 ))}
             </div>
-
-
 
             {/* input */}
             <form className='flex items-center p-4'>
@@ -152,8 +154,6 @@ function Post({ id, username, userImg, img, caption }) {
                     onClick={sendComment}
                     className='font-semibold text-blue-400'>POST</button>
             </form>
-
-
         </div>
     )
 }
