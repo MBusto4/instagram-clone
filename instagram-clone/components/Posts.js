@@ -16,8 +16,8 @@ function Posts() {
                 (snapshot) => {
                     setPosts(snapshot.docs)
                 }
-            )
-            [db]
+            ),
+        [db]
     )
 
     return (
