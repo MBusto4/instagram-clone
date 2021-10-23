@@ -8,7 +8,8 @@ module.exports = {
         domains: [
             'links.papareact.com',
             'pkimgcdn.peekyou.com',
-            'fancycrave.com'
+            'fancycrave.com',
+            'cdn.yourpng.com'
         ]
     }
 

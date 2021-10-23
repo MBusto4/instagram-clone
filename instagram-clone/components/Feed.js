@@ -3,6 +3,7 @@ import Stories from "./Stories"
 import MiniProfile from "./MiniProfile"
 import Suggestions from "./Suggestions"
 import { useSession } from "next-auth/react"
+import Welcome from "./Welcome"
 
 function Feed() {
     const { data: sessionData } = useSession()
@@ -10,8 +11,14 @@ function Feed() {
         <main className={`grid grid-cols-1 md:grid-cols-2 md:max-w-3xl 
         xl:grid-cols-3 xl:max-w-6xl mx-auto ${!sessionData && '!grid-cols-1 !max-w-3xl'}`}>
             <section className='col-span-2'>
-                <Stories />
-                <Posts />
+                {sessionData ? (
+                    <>
+                        <Stories />
+                        <Posts />
+                    </>
+                ) : (
+                    <Welcome />
+                )}
             </section>
 
             {sessionData && (
