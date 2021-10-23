@@ -16,6 +16,7 @@ import { comment } from 'postcss'
 import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from '@firebase/firestore'
 import { db } from '../firebase'
 import { useSession } from 'next-auth/react'
+import Moment from 'react-moment';
 
 function Post({ id, username, userImg, img, caption }) {
 
@@ -36,6 +37,8 @@ function Post({ id, username, userImg, img, caption }) {
             )
         , [db])
 
+
+
     const sendComment = async (e) => {
         e.preventDefault()
 
@@ -50,6 +53,7 @@ function Post({ id, username, userImg, img, caption }) {
             timestamp: serverTimestamp()
         })
     }
+
 
 
     return (
@@ -80,6 +84,22 @@ function Post({ id, username, userImg, img, caption }) {
             </p>
 
             {/* comments */}
+            <div className='ml-10 h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin'>
+                {comments.map((comment) => (
+                    <div className='flex items-center space-x-2 mb-3' key={comment.id}>
+                        <img className='h-7 rounded-full' src={comment.data().userImage} alt="" />
+                        <p className='text-sm flex-1'>
+                            <span className='font-bold'>{comment.data().username}</span>
+                            {comment.data().comment}
+                        </p>
+                        <Moment fromNow className='pr-5 text-xs'>
+                            {comment.data().timestamp?.toDate()}
+                        </Moment>
+                    </div>
+                ))}
+            </div>
+
+
 
             {/* input */}
             <form className='flex items-center p-4'>
