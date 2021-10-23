@@ -13,7 +13,7 @@ import {
     HeartIcon as HeartIconFilled
 } from "@heroicons/react/solid"
 import { comment } from 'postcss'
-import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc } from '@firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc } from '@firebase/firestore'
 import { db } from '../firebase'
 import { useSession } from 'next-auth/react'
 import Moment from 'react-moment';
@@ -23,6 +23,7 @@ function Post({ id, username, userImg, img, caption }) {
     const [comment, setComment] = useState('')
     const [comments, setComments] = useState([])
     const [likes, setLikes] = useState([])
+    const [hasLiked, setHasLiked] = useState(false)
 
     const { data: sessionData } = useSession()
 
@@ -37,7 +38,7 @@ function Post({ id, username, userImg, img, caption }) {
                 (snapshot) =>
                     setComments(snapshot.docs)
             )
-        , [db]
+        , [db, id]
     )
 
     //likes
@@ -50,11 +51,23 @@ function Post({ id, username, userImg, img, caption }) {
     )
 
     const likePost = async () => {
-        await setDoc(doc(db, 'posts', id, 'likes', sessionData.user.uid), {
-            username: sessionData.user.username
-        })
+        if (hasLiked) {
+            await deleteDoc(doc(db, 'posts', id, 'likes', sessionData.user.uid))
+        } else {
+            await setDoc(doc(db, 'posts', id, 'likes', sessionData.user.uid), {
+                username: sessionData.user.username
+            })
+        }
     }
 
+    //unliking
+    useEffect(
+        () =>
+            setHasLiked(
+                likes.findIndex((like) => (like.id === sessionData?.user?.uid)) !== -1
+            ),
+        [likes]
+    )
 
     const sendComment = async (e) => {
         e.preventDefault()
@@ -71,8 +84,6 @@ function Post({ id, username, userImg, img, caption }) {
         })
     }
 
-
-
     return (
         <div className='bg-white my-7 border rounded-sm'>
             {/* Header */}
@@ -88,9 +99,15 @@ function Post({ id, username, userImg, img, caption }) {
             {/* Buttons */}
             <div className='flex justify-between px-4 pt-4'>
                 <div className='flex space-x-4'>
-                    <HeartIcon
-                        onClick={likePost}
-                        className='postButton' />
+                    {hasLiked ? (
+                        <HeartIconFilled
+                            onClick={likePost}
+                            className='postButton text-red-600' />
+                    ) : (
+                        <HeartIcon
+                            onClick={likePost}
+                            className='postButton' />
+                    )}
                     <ChatIcon className='postButton' />
                     <PaperAirplaneIcon className='postButton' />
                 </div>
