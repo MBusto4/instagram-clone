@@ -25,14 +25,12 @@ function Modal() {
     const uploadPost = async () => {
         if (loading) return
         setLoading(true)
-
         /*
         Create a Post and add to firestore 'posts' collection
         get the post Id for the new post
         upload the image to firebase storage with  the post ID
         get the download URL from firebase storage and update the original post with image
         */
-
 
         //use addDoc takes 2 args the db and the collection then u pass it what u want in that collection
         const documentReference = await addDoc(collection(db, 'posts'), {
@@ -67,6 +65,7 @@ function Modal() {
             setSelectedFile(readerEvent.target.result)
         }
     }
+
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog
@@ -121,7 +120,6 @@ function Modal() {
                                             aria-hidden='true'
                                         />
                                     </div>
-
                                 )}
                                 <div className='mt-3 text-center sm:mt-5'>
                                     <Dialog.Title
@@ -160,7 +158,6 @@ function Modal() {
                             </div>
                         </div>
                     </Transition.Child>
-
                 </div>
             </Dialog>
         </Transition.Root>

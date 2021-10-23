@@ -29,7 +29,6 @@ function Stories() {
                 <Story img={sessionData.user.image} username={sessionData.user.username} />
             )}
 
-
             {fakeUsers.map(user => (
                 <Story
                     key={user.id}

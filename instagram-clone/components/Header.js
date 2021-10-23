@@ -23,7 +23,6 @@ function Header() {
 
     const router = useRouter()
 
-
     return (
         <div className='shadow-sm border-b'>
             <div className="flex justify-between sticky top-0 z-1 max-w-6xl mx-5 lg:mx-auto">
@@ -57,7 +56,6 @@ function Header() {
                 </div>
 
                 {/* Right */}
-
                 <div className='flex items-center justify-end space-x-4'>
                     <HomeIcon onClick={() => router.push('/')} className='navButton' />
                     <MenuIcon className='h-6 md:hidden cursor-pointer' />
@@ -79,12 +77,8 @@ function Header() {
                         </>
                     ) : (
                         <button onClick={signIn}> Sign In </button>
-                    )
-                    }
-
+                    )}
                 </div>
-
-
             </div>
         </div>
     )

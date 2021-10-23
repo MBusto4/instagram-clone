@@ -14,7 +14,6 @@ function Suggestions() {
         setSuggestions(suggestions)
     }, [])
 
-
     return (
         <div className='mt-4 ml-10'>
             <div className='flex justify-between text-sm mb-5'>
@@ -33,10 +32,8 @@ function Suggestions() {
                         </div>
                         <button className='text-blue-400 font-bold text-xs'>Follow</button>
                     </div>
-
                 ))
             }
-
         </div>
     )
 }
