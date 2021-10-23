@@ -1,46 +1,36 @@
-import React from 'react'
+import { collection, onSnapshot, orderBy, query } from '@firebase/firestore'
+import React, { useEffect, useState } from 'react'
+import { db } from '../firebase'
 import Post from './Post'
 
-const posts = [
-    {
-        id: '123',
-        username: 'MBusto4',
-        userImg: 'https://pkimgcdn.peekyou.com/aa27a6431e751f6deaf283dd7551f015.jpeg',
-        img: 'https://fancycrave.com/wp-content/uploads/2017/05/Dark-Forest.jpg',
-        caption: 'This Is Dope you are so coooooool!'
-    },
-    {
-        id: '123',
-        username: 'MBusto4',
-        userImg: 'https://pkimgcdn.peekyou.com/aa27a6431e751f6deaf283dd7551f015.jpeg',
-        img: 'https://fancycrave.com/wp-content/uploads/2019/02/Deep-Sunset-over-the-Sea-in-Thailand.jpg',
-        caption: 'This Is Dope you are so coooooool!'
-    },
-    {
-        id: '123',
-        username: 'MBusto4',
-        userImg: 'https://pkimgcdn.peekyou.com/aa27a6431e751f6deaf283dd7551f015.jpeg',
-        img: 'https://fancycrave.com/wp-content/uploads/2019/02/Secret-Beach-in-Thailand-Seen-Through-Tropical-Leaves.jpg',
-        caption: 'This Is Dope you are so coooooool!'
-    },
-]
 
 function Posts() {
+    const [posts, setPosts] = useState([])
+
+    //use onsnapshot from firebase!!
+    //snapshot is a realtime access to the db
+    useEffect(
+        () =>
+            onSnapshot(
+                query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
+                (snapshot) => {
+                    setPosts(snapshot.docs)
+                }
+            ),
+        [db]
+    )
+
     return (
         <div>
-            {posts.map(post => (
+            {posts.map((post) => (
                 <Post key={post.id}
                     id={post.id}
-                    username={post.username}
-                    userImg={post.userImg}
-                    img={post.img}
-                    caption={post.caption}
+                    username={post.data().username}
+                    userImg={post.data().profileImg}
+                    img={post.data().image}
+                    caption={post.data().caption}
                 />
             ))}
-            {/*Post */}
-            {/*Post */}
-            {/*Post */}
-
         </div>
     )
 }
