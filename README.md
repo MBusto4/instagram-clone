@@ -34,6 +34,6 @@
 ## Installation
 
 - To install all dependencies: `npm run install`
-- cd into the directory of airbnb-clone
+- cd into the directory of instagram-clone
 - To Run App!: `npm run dev`
 - Then just visit https://localhost:3000
