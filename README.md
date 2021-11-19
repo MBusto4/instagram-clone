@@ -7,14 +7,12 @@
 
 ## Features to Try!
 
-- Sign into OuterView with your Google account
-- Record yourself talking and see a live transcription
-- Render Face Points and make some funny faces
-- Emotions trained into machine learning model
-  - _Happy, Sad, Surprised, Anger, Fearful, Disgusted, Neutral_
-- Say lots of filler words such as 'like', 'totally' and 'basically'
-- Try different emotions with varying amounts of filler words to see the scoring algorithm work
-- See your previous recordings in the All Recordings page
+- Sign into my instagram clone with your Google account
+- Once logged in you will see some posts that already have been posted to firebase
+- This clone has the features of instagram where you can like and comment on current posts.
+- Navigate to the + symbol on the top right on the screen
+- Once pressed, you can now post a photo to the main feed with any file you have saved on your computer
+- Press Upload and welcome to the instagram clone PARTY!!!!
 
 ## Technologies
 
@@ -28,7 +26,8 @@
   - moment.js
    
 ## Future Roadmap
-
+- Implement the feature of being able to post stories
+- Looking to add the feature of being able to follow someone and having a current followers list
 
 
 ## Installation
